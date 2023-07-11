@@ -1,14 +1,11 @@
 import React, {useContext} from "react";
 import {StyleSheet, View} from "react-native";
-import {ThemeContext} from "../../infra/theme/theme.provider";
 import Wrapper from "../../infra/wrap/Wrapper";
-import {IconButton} from "react-native-paper";
+import {IconButton, MD3Theme, withTheme} from "react-native-paper";
 import {AuthContext} from "../auth/auth.provider";
 import {signOut} from "../auth/auth.service";
 
-// @ts-ignore
-export default function Home({navigation}) {
-  const {ui, text} = useContext(ThemeContext);
+const Home: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
   const {setIsLoading} = useContext(AuthContext);
 
   const logout = () => {
@@ -22,21 +19,19 @@ export default function Home({navigation}) {
       <IconButton
           icon="logout"
           mode="contained"
-          containerColor={ui.color.primary}
-          iconColor={text.color.primary}
+          containerColor={theme.colors.primary}
+          iconColor={theme.colors.onPrimary}
           onPress={logout}/>
     </View>
   </Wrapper>);
-};
+}
+
+export default withTheme(Home);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  },
-  // @ts-ignore
-  text: (textStyle) => ({
-    color: textStyle.color.primary
-  })
+  }
 });

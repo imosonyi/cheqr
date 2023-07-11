@@ -1,23 +1,32 @@
-import React, {useContext} from "react";
+import React from "react";
+import {MD3Theme, Snackbar, withTheme} from "react-native-paper";
 import {StyleSheet} from "react-native";
-import {Snackbar} from "react-native-paper";
-import {ThemeContext} from "../../infra/theme/theme.provider";
+import {Text} from "react-native";
 
-// @ts-ignore
-export default function AuthErrorSnackbar({error, onDismiss}) {
-  const {ui, gaps} = useContext(ThemeContext);
-  return (<Snackbar visible={!!error}
-                    onDismiss={onDismiss}
-                    duration={3000}
-      // @ts-ignore
-                    style={styles.snackbar(ui)}>
-    {error}
-  </Snackbar>);
-};
+const AuthErrorSnackbar: (props: { error: string, onDismiss: () => void, theme: MD3Theme }) => JSX.Element =
+    ({error, onDismiss, theme}) => (
+        <Snackbar visible={!!error}
+                  onDismiss={onDismiss}
+                  duration={3000}
+                  wrapperStyle={styles.wrapper}
+                  // @ts-ignore
+                  style={styles.snackbar(theme.colors.secondary)}>
+          <Text style={styles.message}>{error}</Text>
+        </Snackbar>
+    );
+
+export default withTheme(AuthErrorSnackbar);
 
 const styles = StyleSheet.create({
+  wrapper: {
+    top: 0
+  },
   // @ts-ignore
-  snackbar: (uiStyle) => ({
-    backgroundColor: uiStyle.color.secondary
-  })
+  snackbar: (backgroundColor) => ({
+    backgroundColor: backgroundColor,
+    marginHorizontal: 100
+  }),
+  message: {
+    textAlign: "center"
+  }
 });

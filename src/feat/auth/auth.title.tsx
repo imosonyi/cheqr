@@ -1,16 +1,15 @@
-import React, {useContext} from "react";
+import React from "react";
 import {StyleSheet, Text, View} from "react-native";
-import {ThemeContext} from "../../infra/theme/theme.provider";
+import {MD3Theme, withTheme} from "react-native-paper";
 
-// @ts-ignore
-export default function AuthTitle({title}) {
-  const {text} = useContext(ThemeContext);
+const AuthTitle: (props: { title: string, theme: MD3Theme }) => JSX.Element = ({title, theme}) => (
+    <View style={styles.titleContainer}>
+      {/* @ts-ignore */}
+      <Text style={styles.title(theme)}>{title}</Text>
+    </View>
+);
 
-  return (<View style={styles.titleContainer}>
-    {/* @ts-ignore */}
-    <Text style={styles.title(text)}>{title}</Text>
-  </View>);
-};
+export default withTheme(AuthTitle);
 
 const styles = StyleSheet.create({
   titleContainer: {
@@ -20,8 +19,8 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   // @ts-ignore
-  title: (textStyle) => ({
-    fontSize: textStyle.size.l,
-    color: textStyle.color.primary
+  title: (theme: MD3Theme) => ({
+    fontSize: theme.fonts.titleLarge.fontSize,
+    color: theme.colors.onBackground
   })
 });

@@ -1,13 +1,14 @@
-import React, {useContext} from "react";
+import React from "react";
 import {ActivityIndicator, StyleSheet, View} from "react-native";
-import {ThemeContext} from "./theme.provider";
+import {MD3Theme, withTheme} from "react-native-paper";
 
-export default function Loading() {
-  const {ui} = useContext(ThemeContext);
-  return (<View style={styles.container}>
-    <ActivityIndicator color={ui.color.primary} size="large" animating={true}/>
-  </View>);
-};
+const Loading: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => (
+    <View style={styles.container}>
+      <ActivityIndicator color={theme.colors.primary} size="large" animating={true}/>
+    </View>
+);
+
+export default withTheme(Loading);
 
 const styles = StyleSheet.create({
   container: {

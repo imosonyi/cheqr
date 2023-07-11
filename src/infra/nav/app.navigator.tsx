@@ -6,14 +6,15 @@ import {AuthContext} from "../../feat/auth/auth.provider";
 
 const AppStack = createStackNavigator();
 
-export default function AppNavigator() {
+const AppNavigator: () => JSX.Element = () => {
   const {user} = useContext(AuthContext);
 
   return (<AppStack.Navigator screenOptions={{headerShown: false}}>
-    {/* @ts-ignore */}
     {user?.email
         ? <AppStack.Screen name="Home" component={Home}/>
         : <AppStack.Screen name="AuthNavigator" component={AuthNavigator}/>
     }
   </AppStack.Navigator>);
 };
+
+export default AppNavigator;

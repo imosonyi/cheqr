@@ -1,15 +1,13 @@
-import React, {useContext} from "react";
-import {IconButton} from "react-native-paper";
-import {ThemeContext} from "../../infra/theme/theme.provider";
+import React from "react";
+import {IconButton, MD3Theme, withTheme} from "react-native-paper";
 
-// @ts-ignore
-export default function SocialAuthButton({platform}) {
-  const {ui, text} = useContext(ThemeContext);
+const SocialAuthButton: (props: { platform: string, theme: MD3Theme }) => JSX.Element = ({platform, theme}) => (
+    <IconButton
+        disabled={true}
+        icon={platform}
+        mode="contained"
+        containerColor={theme.colors.primary}
+        iconColor={theme.colors.onPrimary}/>
+);
 
-  return (<IconButton
-      disabled={true}
-      icon={platform}
-      mode="contained"
-      containerColor={ui.color.primary}
-      iconColor={text.color.primary}/>);
-};
+export default withTheme(SocialAuthButton);

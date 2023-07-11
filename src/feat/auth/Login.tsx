@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
-import {View} from "react-native";
-import {ThemeContext} from "../../infra/theme/theme.provider";
-import {Button, Snackbar} from "react-native-paper";
+import {Platform, View} from "react-native";
+import {Button, MD3Theme, withTheme} from "react-native-paper";
 import Wrapper from "../../infra/wrap/Wrapper";
 import {authFormStyle} from "./authForm.style";
 import Input from "../../infra/theme/Input";
@@ -14,9 +13,7 @@ import {signIn} from "./auth.service";
 import handleAuthError from "./auth.errorHandler";
 import AuthErrorSnackbar from "./authError.snackbar";
 
-// @ts-ignore
-export default function Login({navigation}) {
-  const {text, ui, gaps} = useContext(ThemeContext);
+const Login: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
   const {setIsLoading} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [emailBlurred, setEmailBlurred] = useState(false);
@@ -30,16 +27,14 @@ export default function Login({navigation}) {
   const login = () => {
     setIsLoading(true);
     signIn(email, password)
-        .catch((error: {code: string}) => setError(handleAuthError(error)))
+        .catch((error: { code: string }) => setError(handleAuthError(error)))
         .finally(() => setIsLoading(false));
   };
 
   return (<Wrapper>
     <AuthTitle title="Login"/>
-    {/* @ts-ignore */}
-    <View style={styles.formContainer(gaps)}>
-      {/* @ts-ignore */}
-      <View style={styles.inputContainer(gaps)}>
+    <View style={styles.formContainer}>
+      <View style={styles.inputContainer}>
         <View>
           <Input label="E-mail"
                  placeholder="your@email.com"
@@ -65,10 +60,10 @@ export default function Login({navigation}) {
         </View>
       </View>
       {/* @ts-ignore */}
-      <View style={styles.buttonContainer(gaps)}>
+      <View style={styles.buttonContainer}>
         <Button mode="contained"
-                buttonColor={ui.color.primary}
-                textColor={text.color.primary}
+                buttonColor={theme.colors.primary}
+                textColor={theme.colors.onPrimary}
                 disabled={!isFormValid()}
                 onPress={login}>
           Login
@@ -77,12 +72,14 @@ export default function Login({navigation}) {
         <View style={styles.socialContainer}>
           <SocialAuthButton platform="google"/>
           <SocialAuthButton platform="facebook"/>
-          <SocialAuthButton platform="apple"/>
+          {Platform.OS === "ios" && <SocialAuthButton platform="apple"/>}
         </View>
       </View>
     </View>
     <AuthErrorSnackbar error={error} onDismiss={() => setError("")}/>
   </Wrapper>);
-};
+}
+
+export default withTheme(Login);
 
 const styles = authFormStyle;

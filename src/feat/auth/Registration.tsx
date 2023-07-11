@@ -1,7 +1,6 @@
 import React, {useContext, useState} from "react";
 import {Platform, View} from "react-native";
-import {ThemeContext} from "../../infra/theme/theme.provider";
-import {Button} from "react-native-paper";
+import {Button, MD3Theme, withTheme} from "react-native-paper";
 import Wrapper from "../../infra/wrap/Wrapper";
 import {authFormStyle} from "./authForm.style";
 import Input from "../../infra/theme/Input";
@@ -14,9 +13,7 @@ import {signUp} from "./auth.service";
 import AuthErrorSnackbar from "./authError.snackbar";
 import handleAuthError from "./auth.errorHandler";
 
-// @ts-ignore
-export default function Registration({navigation}) {
-  const {text, ui, gaps} = useContext(ThemeContext);
+const Registration: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
   const {setIsLoading} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [emailBlurred, setEmailBlurred] = useState(false);
@@ -48,10 +45,8 @@ export default function Registration({navigation}) {
 
   return (<Wrapper>
     <AuthTitle title="Registration"/>
-    {/* @ts-ignore */}
-    <View style={styles.formContainer(gaps)}>
-      {/* @ts-ignore */}
-      <View style={styles.inputContainer(gaps)}>
+    <View style={styles.formContainer}>
+      <View style={styles.inputContainer}>
         <View>
           <Input label="E-mail"
                  placeholder="your@email.com"
@@ -103,11 +98,10 @@ export default function Registration({navigation}) {
           </Help>
         </View>
       </View>
-      {/* @ts-ignore */}
-      <View style={styles.buttonContainer(gaps)}>
+      <View style={styles.buttonContainer}>
         <Button mode="contained"
-                buttonColor={ui.color.primary}
-                textColor={text.color.secondary}
+                buttonColor={theme.colors.primary}
+                textColor={theme.colors.onPrimary}
                 disabled={!isFormValid()}
                 onPress={register}>
           Register
@@ -122,6 +116,8 @@ export default function Registration({navigation}) {
     </View>
     <AuthErrorSnackbar error={error} onDismiss={() => setError("")}/>
   </Wrapper>);
-};
+}
+
+export default withTheme(Registration);
 
 const styles = authFormStyle;

@@ -6,12 +6,18 @@ import Registration from "./Registration";
 
 const AuthStack = createStackNavigator();
 
-export default function AuthNavigator() {
-  return (
-      <AuthStack.Navigator screenOptions={{headerTransparent: true, headerTitle: ""}}>
-        <AuthStack.Screen name="Welcome" component={Welcome}/>
-        <AuthStack.Screen name="Login" component={Login}/>
-        <AuthStack.Screen name="Registration" component={Registration}/>
-      </AuthStack.Navigator>
-  );
+const AuthNavigator: () => JSX.Element = () => (
+    <AuthStack.Navigator screenOptions={screenOptions}>
+      <AuthStack.Screen name="Welcome" component={Welcome}/>
+      <AuthStack.Screen name="Login" component={Login}/>
+      <AuthStack.Screen name="Registration" component={Registration}/>
+    </AuthStack.Navigator>
+);
+
+export default AuthNavigator;
+
+const screenOptions = {
+  headerTransparent: true,
+  headerTitle: "",
+  headerStatusBarHeight: 0
 };

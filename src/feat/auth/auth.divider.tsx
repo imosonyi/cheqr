@@ -1,20 +1,19 @@
-import React, {useContext} from "react";
-import {Divider} from "react-native-paper";
+import React from "react";
+import {Divider, MD3Theme, withTheme} from "react-native-paper";
 import {StyleSheet, Text, View} from "react-native";
-import {ThemeContext} from "../../infra/theme/theme.provider";
 
-export default function AuthDivider() {
-  const {text} = useContext(ThemeContext);
+const AuthDivider: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => (
+    <View style={styles.dividerContainer}>
+      {/* @ts-ignore */}
+      <Divider style={styles.divider(theme.colors.primary)}/>
+      {/* @ts-ignore */}
+      <Text style={styles.dividerText(theme.colors.onBackground)}>or</Text>
+      {/* @ts-ignore */}
+      <Divider style={styles.divider(theme.colors.primary)}/>
+    </View>
+);
 
-  return (<View style={styles.dividerContainer}>
-    {/* @ts-ignore */}
-    <Divider style={styles.divider(text)}/>
-    {/* @ts-ignore */}
-    <Text style={styles.dividerText(text)}>or</Text>
-    {/* @ts-ignore */}
-    <Divider style={styles.divider(text)}/>
-  </View>);
-};
+export default withTheme(AuthDivider);
 
 const styles = StyleSheet.create({
   dividerContainer: {
@@ -23,12 +22,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   },
   // @ts-ignore
-  divider: (textStyle) => ({
+  divider: (backgroundColor: string) => ({
     width: "30%",
-    backgroundColor: textStyle.color.secondary
+    backgroundColor: backgroundColor
   }),
   // @ts-ignore
-  dividerText: (textStyle) => ({
-    color: textStyle.color.primary
+  dividerText: (color: string) => ({
+    color: color
   })
 });

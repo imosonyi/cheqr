@@ -1,26 +1,26 @@
-import React, {useContext} from "react";
+import React, {ReactNode, useContext} from "react";
 import {StyleSheet, View} from "react-native";
-import {ThemeContext} from "../theme/theme.provider";
 import Loading from "../theme/Loading";
 import {AuthContext} from "../../feat/auth/auth.provider";
+import {MD3Theme, withTheme} from "react-native-paper";
 
-// @ts-ignore
-export default function Wrapper({children}) {
-  const {background} = useContext(ThemeContext);
+const Wrapper: (props: { children: ReactNode, theme: MD3Theme }) => JSX.Element = ({children, theme}) => {
   const {isLoading} = useContext(AuthContext);
   // @ts-ignore
-  return (<View style={styles.wrapper(background)}>
+  return (<View style={styles.wrapper(theme.colors.primaryContainer)}>
     <View style={styles.content}>
       {children}
     </View>
     {isLoading && <Loading/>}
   </View>);
-};
+}
+
+export default withTheme(Wrapper);
 
 const styles = StyleSheet.create({
   // @ts-ignore
-  wrapper: (wrapperStyle) => ({
-    backgroundColor: wrapperStyle.backgroundColor,
+  wrapper: (backgroundColor) => ({
+    backgroundColor: backgroundColor,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",

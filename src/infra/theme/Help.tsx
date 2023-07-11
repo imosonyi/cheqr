@@ -1,13 +1,14 @@
-import React, {useContext} from "react";
-import {HelperText} from "react-native-paper";
-import {ThemeContext} from "./theme.provider";
+import React, {ReactNode} from "react";
+import {HelperText, MD3Theme, withTheme} from "react-native-paper";
 
 // @ts-ignore
-export default function Help({visible, children}) {
-  const {ui} = useContext(ThemeContext);
-  return visible && (
-      <HelperText type="info" style={{color: ui.color.secondary}} visible={visible}>
-        {children}
-      </HelperText>
-  );
-};
+const Help: (props: { visible: boolean, children: ReactNode, theme: MD3Theme }) => JSX.Element =
+    ({visible, children, theme}) => {
+      return visible && (
+          <HelperText type="info" style={{color: theme.colors.secondary}} visible={visible}>
+            {children}
+          </HelperText>
+      );
+    };
+
+export default withTheme(Help);

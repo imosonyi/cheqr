@@ -1,57 +1,44 @@
-import React, {useContext} from "react";
-import {StyleSheet, Text, View} from "react-native";
-import {ThemeContext} from "../../infra/theme/theme.provider";
-import {Button} from "react-native-paper";
+import React from "react";
+import {StyleSheet, View} from "react-native";
+import {Button, MD3Theme, withTheme} from "react-native-paper";
 import Wrapper from "../../infra/wrap/Wrapper";
 import AuthTitle from "./auth.title";
+import {NavigationProp} from "@react-navigation/core/src/types";
 
-// @ts-ignore
-export default function Welcome({navigation}) {
-  const {text, ui, gaps} = useContext(ThemeContext);
-  return (<Wrapper>
-    <AuthTitle title="Welcome"/>
-    {/* @ts-ignore */}
-    <View style={styles.buttonContainer(gaps)}>
-      <Button
-          style={styles.button}
-          mode="outlined"
-          textColor={text.color.primary}
-          onPress={() => navigation.navigate("Registration")}
-      >
-        Register
-      </Button>
-      <Button
-          style={styles.button}
-          mode="contained"
-          buttonColor={ui.color.primary}
-          textColor={text.color.primary}
-          onPress={() => navigation.navigate("Login")}
-      >
-        Login
-      </Button>
-    </View>
-  </Wrapper>);
-};
+const Welcome: (props: { theme: MD3Theme, navigation: NavigationProp<any> }) => JSX.Element = ({theme, navigation}) => (
+    <Wrapper>
+      <AuthTitle title="Welcome"/>
+      <View style={styles.buttonContainer}>
+        <Button
+            style={styles.button}
+            mode="outlined"
+            buttonColor={theme.colors.secondary}
+            textColor={theme.colors.onSecondary}
+            onPress={() => navigation.navigate("Registration")}
+        >
+          Register
+        </Button>
+        <Button
+            style={styles.button}
+            mode="contained"
+            buttonColor={theme.colors.primary}
+            textColor={theme.colors.onPrimary}
+            onPress={() => navigation.navigate("Login")}
+        >
+          Login
+        </Button>
+      </View>
+    </Wrapper>);
+
+export default withTheme(Welcome);
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center"
-  },
-  // @ts-ignore
-  title: (textStyle) => ({
-    fontSize: textStyle.size.l,
-    color: textStyle.color.primary
-  }),
-  // @ts-ignore
-  buttonContainer: (gapStyle) => ({
+  buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: gapStyle.m,
-    columnGap: gapStyle.m
-  }),
+    margin: 20,
+    columnGap: 20
+  },
   button: {
     width: "45%"
   }
