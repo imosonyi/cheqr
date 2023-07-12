@@ -6,6 +6,7 @@ import AuthProvider from "./src/feat/auth/auth.provider";
 import AppNavigator from "./src/infra/nav/app.navigator";
 import {PaperProvider} from "react-native-paper";
 import {darkTheme, lightTheme} from "./src/infra/theme/theme";
+import ScanContextProvider from "./src/feat/scan/scan.provider";
 
 const App: () => JSX.Element = () => {
   const [dark, setDark] = useState(useColorScheme() === "dark");
@@ -15,9 +16,11 @@ const App: () => JSX.Element = () => {
     <SafeAreaView style={styles.container}>
       <PaperProvider theme={dark ? darkTheme : lightTheme}>
         <AuthProvider>
-          <NavigationContainer>
-            <AppNavigator/>
-          </NavigationContainer>
+          <ScanContextProvider>
+            <NavigationContainer>
+              <AppNavigator/>
+            </NavigationContainer>
+          </ScanContextProvider>
         </AuthProvider>
       </PaperProvider>
     </SafeAreaView>

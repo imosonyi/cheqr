@@ -28,6 +28,14 @@ export default {
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+        [
+            "expo-barcode-scanner",
+          {
+            "caneraPermission": "Allow CheQR to access camera."
+          }
+        ]
+    ],
     "extra": {
       "firebaseApiKey": process.env.FIREBASE_API_KEY,
       "firebaseAuthDomain": process.env.FIREBASE_AUTH_DOMAIN,

@@ -14,7 +14,7 @@ import handleAuthError from "./auth.errorHandler";
 import AuthErrorSnackbar from "./authError.snackbar";
 
 const Login: () => JSX.Element = () => {
-  const {setIsLoading} = useContext(AuthContext);
+  const {isLoading, setIsLoading} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [emailBlurred, setEmailBlurred] = useState(false);
   const [password, setPassword] = useState('');
@@ -31,7 +31,7 @@ const Login: () => JSX.Element = () => {
         .finally(() => setIsLoading(false));
   };
 
-  return (<Wrapper>
+  return (<Wrapper isLoading={isLoading}>
     <AuthTitle title="Login"/>
     <View style={styles.formContainer}>
       <View style={styles.inputContainer}>

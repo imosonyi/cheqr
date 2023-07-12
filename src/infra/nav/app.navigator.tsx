@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {createStackNavigator} from "@react-navigation/stack";
-import Home from "../../feat/home/Home";
 import AuthNavigator from "../../feat/auth/auth.navigator";
 import {AuthContext} from "../../feat/auth/auth.provider";
+import ContentNavigator from "./content.navigator";
 
 const AppStack = createStackNavigator();
 
@@ -11,7 +11,7 @@ const AppNavigator: () => JSX.Element = () => {
 
   return (<AppStack.Navigator screenOptions={{headerShown: false}}>
     {user?.email
-        ? <AppStack.Screen name="Home" component={Home}/>
+        ? <AppStack.Screen name="ContentNavigator" component={ContentNavigator}/>
         : <AppStack.Screen name="AuthNavigator" component={AuthNavigator}/>
     }
   </AppStack.Navigator>);
