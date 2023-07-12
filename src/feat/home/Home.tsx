@@ -1,11 +1,11 @@
 import React, {useContext} from "react";
 import {StyleSheet, View} from "react-native";
 import Wrapper from "../../infra/wrap/Wrapper";
-import {IconButton, MD3Theme, withTheme} from "react-native-paper";
+import {IconButton} from "react-native-paper";
 import {AuthContext} from "../auth/auth.provider";
 import {signOut} from "../auth/auth.service";
 
-const Home: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
+const Home: () => JSX.Element = () => {
   const {setIsLoading} = useContext(AuthContext);
 
   const logout = () => {
@@ -19,14 +19,12 @@ const Home: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
       <IconButton
           icon="logout"
           mode="contained"
-          containerColor={theme.colors.primary}
-          iconColor={theme.colors.onPrimary}
           onPress={logout}/>
     </View>
   </Wrapper>);
 }
 
-export default withTheme(Home);
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

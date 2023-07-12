@@ -1,10 +1,10 @@
 import React from "react";
 import {ActivityIndicator, StyleSheet, View} from "react-native";
-import {MD3Theme, withTheme} from "react-native-paper";
+import {withTheme} from "react-native-paper";
 
-const Loading: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => (
+const Loading: () => JSX.Element = () => (
     <View style={styles.container}>
-      <ActivityIndicator color={theme.colors.primary} size="large" animating={true}/>
+      <ActivityIndicator size="large" animating={true}/>
     </View>
 );
 

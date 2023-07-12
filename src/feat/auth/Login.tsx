@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {Platform, View} from "react-native";
-import {Button, MD3Theme, withTheme} from "react-native-paper";
+import {Button} from "react-native-paper";
 import Wrapper from "../../infra/wrap/Wrapper";
 import {authFormStyle} from "./authForm.style";
 import Input from "../../infra/theme/Input";
@@ -13,7 +13,7 @@ import {signIn} from "./auth.service";
 import handleAuthError from "./auth.errorHandler";
 import AuthErrorSnackbar from "./authError.snackbar";
 
-const Login: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
+const Login: () => JSX.Element = () => {
   const {setIsLoading} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [emailBlurred, setEmailBlurred] = useState(false);
@@ -62,8 +62,6 @@ const Login: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
       {/* @ts-ignore */}
       <View style={styles.buttonContainer}>
         <Button mode="contained"
-                buttonColor={theme.colors.primary}
-                textColor={theme.colors.onPrimary}
                 disabled={!isFormValid()}
                 onPress={login}>
           Login
@@ -80,6 +78,6 @@ const Login: (props: { theme: MD3Theme }) => JSX.Element = ({theme}) => {
   </Wrapper>);
 }
 
-export default withTheme(Login);
+export default Login;
 
 const styles = authFormStyle;

@@ -1,14 +1,14 @@
 import React, {ReactNode} from "react";
-import {HelperText, MD3Theme, withTheme} from "react-native-paper";
+import {HelperText} from "react-native-paper";
 
 // @ts-ignore
-const Help: (props: { visible: boolean, children: ReactNode, theme: MD3Theme }) => JSX.Element =
-    ({visible, children, theme}) => {
+const Help: (props: { visible: boolean, children: ReactNode }) => JSX.Element =
+    ({visible, children}) => {
       return visible && (
-          <HelperText type="info" style={{color: theme.colors.secondary}} visible={visible}>
+          <HelperText type="info" visible={visible}>
             {children}
           </HelperText>
       );
     };
 
-export default withTheme(Help);
+export default Help;

@@ -7,7 +7,7 @@ import {MD3Theme, withTheme} from "react-native-paper";
 const Wrapper: (props: { children: ReactNode, theme: MD3Theme }) => JSX.Element = ({children, theme}) => {
   const {isLoading} = useContext(AuthContext);
   // @ts-ignore
-  return (<View style={styles.wrapper(theme.colors.primaryContainer)}>
+  return (<View style={styles.wrapper(theme.colors.background)}>
     <View style={styles.content}>
       {children}
     </View>

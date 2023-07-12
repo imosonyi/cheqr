@@ -1,19 +1,17 @@
 import React from "react";
 import {StyleSheet, View} from "react-native";
-import {Button, MD3Theme, withTheme} from "react-native-paper";
+import {Button} from "react-native-paper";
 import Wrapper from "../../infra/wrap/Wrapper";
 import AuthTitle from "./auth.title";
 import {NavigationProp} from "@react-navigation/core/src/types";
 
-const Welcome: (props: { theme: MD3Theme, navigation: NavigationProp<any> }) => JSX.Element = ({theme, navigation}) => (
+const Welcome: (props: { navigation: NavigationProp<any> }) => JSX.Element = ({navigation}) => (
     <Wrapper>
       <AuthTitle title="Welcome"/>
       <View style={styles.buttonContainer}>
         <Button
             style={styles.button}
             mode="outlined"
-            buttonColor={theme.colors.secondary}
-            textColor={theme.colors.onSecondary}
             onPress={() => navigation.navigate("Registration")}
         >
           Register
@@ -21,8 +19,6 @@ const Welcome: (props: { theme: MD3Theme, navigation: NavigationProp<any> }) => 
         <Button
             style={styles.button}
             mode="contained"
-            buttonColor={theme.colors.primary}
-            textColor={theme.colors.onPrimary}
             onPress={() => navigation.navigate("Login")}
         >
           Login
@@ -30,7 +26,7 @@ const Welcome: (props: { theme: MD3Theme, navigation: NavigationProp<any> }) => 
       </View>
     </Wrapper>);
 
-export default withTheme(Welcome);
+export default Welcome;
 
 const styles = StyleSheet.create({
   buttonContainer: {
