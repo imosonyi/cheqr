@@ -12,6 +12,7 @@ const RequestPermission: (props: { theme: MD3Theme }) => JSX.Element = ({theme})
   const {isRequesting, setIsRequesting, hasPermission, setHasPermission} = useContext(ScanContext);
 
   const openSettings: () => void = () => {
+    setIsRequesting(true);
     if (Platform.OS === "ios") {
       Linking.openURL("app-settings:")
           .then(requestPermission);
@@ -34,8 +35,12 @@ const RequestPermission: (props: { theme: MD3Theme }) => JSX.Element = ({theme})
 
   return (<Wrapper isLoading={isRequesting}>
     <View style={styles.messageContainer}>
-      <Text style={{color: theme.colors.onBackground}}>{isRequesting ? "Requesting" : "No access"}</Text>
-      <Button mode="contained" onPress={openSettings} disabled={isRequesting}>Open app settings</Button>
+      <Text style={{color: theme.colors.onBackground}}>{
+        isRequesting
+            ? "Requesting access to camera."
+            : "CheQR requires access to camera to scan QR codes."
+      }</Text>
+      <Button mode="contained" onPress={openSettings} disabled={isRequesting}>Open settings</Button>
     </View>
   </Wrapper>);
 };
@@ -47,6 +52,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    textAlign: "center"
+    textAlign: "center",
+    rowGap: 20
   }
 });
